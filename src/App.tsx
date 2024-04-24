@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import localforage from "localforage";
 import { isTodos } from "./lib/isTodo";
-import { Container, Box, Button } from "@chakra-ui/react";
+import { Container, Box, Button, HStack } from "@chakra-ui/react";
 import { SelectTodoType } from "./components/SelectTodoType";
 import { AddTodo } from "./components/AddTodo";
 import { TodoList } from "./components/TodoList";
+import { EmptyButton } from "./components/EmptyButton";
 
 export const App = () => {
   const [text, setText] = useState("");
@@ -65,24 +66,20 @@ export const App = () => {
   return (
     <Container maxW="md" mt={8}>
       <Box maxW="md" borderWidth="1px" borderRadius="lg" p={2}>
-        <SelectTodoType handleSort={handleSort} />
-        {filter === "removed" && (
-          <Button
-            size="sm"
-            colorScheme="red"
-            onClick={handleEmpty}
-            disabled={todos.filter((todo) => todo.removed).length === 0}
-          >
-            ゴミ箱を空にする
-          </Button>
-        )}
-        {filter !== "removed" && filter !== "checked" && (
-          <AddTodo
-            text={text}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
+        <HStack mb={2}>
+          <SelectTodoType handleSort={handleSort} />
+          <EmptyButton
+            todos={todos}
+            filter={filter}
+            handleEmpty={handleEmpty}
           />
-        )}
+        </HStack>
+        <AddTodo
+          text={text}
+          filter={filter}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
         <TodoList filterTodos={filterTodos} setTodos={setTodos} />
       </Box>
     </Container>

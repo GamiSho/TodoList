@@ -32,11 +32,11 @@ export const TodoList = (prop: Props) => {
   };
 
   return (
-    <div>
+    <>
       {prop.filterTodos.map((todo) => {
         return (
-          <Card mb={2}>
-            <CardBody key={todo.id}>
+          <Card mb={2} key={todo.id}>
+            <CardBody>
               <HStack spacing="4px">
                 <Checkbox
                   colorScheme="green"
@@ -45,13 +45,13 @@ export const TodoList = (prop: Props) => {
                 />
                 <Input
                   type="text"
-                  size="sm"
+                  size="md"
                   disabled={todo.checked || todo.removed}
                   value={todo.value}
                   onChange={(e) => handleTodo(todo.id, "value", e.target.value)}
                 />
                 <Button
-                  size="sm"
+                  size="md"
                   colorScheme={todo.removed ? "green" : "red"}
                   onClick={() => handleTodo(todo.id, "removed", !todo.removed)}
                 >
@@ -62,6 +62,6 @@ export const TodoList = (prop: Props) => {
           </Card>
         );
       })}
-    </div>
+    </>
   );
 };
