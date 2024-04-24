@@ -2,36 +2,41 @@ import { Box, HStack, Input, Button } from "@chakra-ui/react";
 
 type Prop = {
   text: string;
+  filter: Filter;
   handleSubmit: () => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const AddTodo = (prop: Prop) => {
   return (
-    <Box mb={8}>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          prop.handleSubmit();
-        }}
-      >
-        <HStack>
-          <Input
-            size="sm"
-            type="text"
-            value={prop.text}
-            onChange={prop.handleChange}
-          />
-          <Button
-            colorScheme="green"
-            size="sm"
-            onSubmit={prop.handleSubmit}
-            type="submit"
+    <>
+      {prop.filter !== "removed" && prop.filter !== "checked" && (
+        <Box mb={8}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              prop.handleSubmit();
+            }}
           >
-            追加
-          </Button>
-        </HStack>
-      </form>
-    </Box>
+            <HStack>
+              <Input
+                size="md"
+                type="text"
+                value={prop.text}
+                onChange={prop.handleChange}
+              />
+              <Button
+                colorScheme="green"
+                size="md"
+                onSubmit={prop.handleSubmit}
+                type="submit"
+              >
+                追加
+              </Button>
+            </HStack>
+          </form>
+        </Box>
+      )}
+    </>
   );
 };

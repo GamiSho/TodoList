@@ -7,7 +7,6 @@ type Prop = {
 export const SelectTodoType = (prop: Prop) => {
   return (
     <Select
-      mb={2}
       defaultValue="all"
       onChange={(e) => prop.handleSort(e.target.value as Filter)}
     >
